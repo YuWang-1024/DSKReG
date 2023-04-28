@@ -17,6 +17,7 @@ class Dataloader(object):
 
         train_file = path + '/train.txt'
         test_file = path + '/test.txt'
+        item_file = path + '/item_list.txt'
         self.max_length = 500
 
         self.n_users, self.n_items = 0, 0
@@ -59,7 +60,11 @@ class Dataloader(object):
                         self.item_user_test_dict[item].append(uid)
 
         self.n_users = len(self.user_item_train_dict.keys())
-        self.n_items = len(set(self.item_user_train_dict.keys()) | set(self.item_user_test_dict.keys()))
+        # self.n_items = len(set(self.item_user_train_dict.keys()) | set(self.item_user_test_dict.keys()))
+        with open(item_file) as f:
+            for l in f.readlines():
+                self.n_items += 1
+
 
 
 
